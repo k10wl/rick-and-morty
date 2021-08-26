@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import CardContainer from "./CardContainer";
 import { DefaultRootState } from "../../redux";
 import { Character, InfoType } from "../../types";
+import GetAllNames from "../../customHooks/GetAllNames";
+import List from "./List";
 
 function Characters() {
   const filtersInitialState = {
@@ -12,11 +14,16 @@ function Characters() {
     gender: "none",
     page: 1,
   };
+  // eslint-disable-next-line no-unused-vars
+  const [filterResultsLoaded, setFilterResultsLoaded] = React.useState(false);
   const [charFilters, setCharFilters] = React.useState(filtersInitialState);
   const [customFilter, setCustomFilter] = React.useState(false);
   const [filteredChars, setFilteredChars] = React.useState<Character[]>([]);
   const [nextExists, setNextExists] = React.useState(true);
-  const { pages, filters } = useSelector((state: DefaultRootState) => state);
+  const [customQuery, setCustomQuery] = React.useState("");
+  const { pages, filters, names } = useSelector(
+    (state: DefaultRootState) => state
+  );
   const [currentPage, setCurrentPage] = React.useState(1);
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (!customFilter) {
@@ -43,6 +50,13 @@ function Characters() {
       page: 1,
     });
   }
+  const { loaded, namesList: customNames } = GetAllNames(customQuery);
+
+  React.useEffect(() => {
+    if (pages.characters.length !== 0) {
+      setFilterResultsLoaded(true);
+    }
+  });
   React.useEffect(() => {
     const { page, status, species, gender } = charFilters;
     const statusQuery = status !== "none" && `status=${status}`;
@@ -51,16 +65,29 @@ function Characters() {
     const combineQuery = [statusQuery, speciesQuery, genderQuery]
       .filter(Boolean)
       .join("&");
+    setCustomQuery(
+      `https://rickandmortyapi.com/api/character/?${combineQuery}`
+    );
     if (combineQuery) {
+      setFilterResultsLoaded(false);
       fetch(
         `https://rickandmortyapi.com/api/character/?page=${page}&&${combineQuery}`
       )
         .then((r) => r.json())
         .then(({ info, results }: { info: InfoType; results: Character[] }) => {
+          if (!info) {
+            setFilteredChars([]);
+            setNextExists(false);
+            setCurrentPage(1);
+            setCustomFilter(true);
+            setFilterResultsLoaded(true);
+            return;
+          }
           setFilteredChars(results);
           setNextExists(info.next !== null);
           setCurrentPage(page);
           setCustomFilter(true);
+          setFilterResultsLoaded(true);
         });
     }
     if (combineQuery === "") {
@@ -104,9 +131,23 @@ function Characters() {
           ))}
         </select>
       </Mui.Grid>
-      <CardContainer
-        array={customFilter ? filteredChars : pages.characters[currentPage - 1]}
-      />
+      {loaded && filterResultsLoaded ? (
+        <Mui.Grid
+          container
+          spacing={1}
+          style={{ alignItems: "stretch" }}
+          direction="row"
+        >
+          <List array={customFilter ? customNames : names} />
+          <CardContainer
+            array={
+              customFilter ? filteredChars : pages.characters[currentPage - 1]
+            }
+          />
+        </Mui.Grid>
+      ) : (
+        <h1>Loading...</h1>
+      )}
       <Mui.Grid container justifyContent="center" alignItems="center">
         <Mui.Button
           value="prev"

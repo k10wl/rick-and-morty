@@ -6,20 +6,25 @@ import { Character } from "../../../types";
 
 function CardContainer({ array }: { array: Character[] }) {
   return (
-    <Mui.Grid
-      container
-      spacing={1}
-      direction="row"
-      justifyContent="center"
-      alignItems="flex-start"
-    >
-      {array.map(
-        (el: { id: number; image: string; status: string; name: string }) => (
-          <Grid key={el.id} item>
-            <CharacterCard image={el.image} status={el.status} name={el.name} />
-          </Grid>
-        )
-      )}
+    <Mui.Grid item xs={9}>
+      <Mui.Grid
+        direction="row"
+        justifyContent="center"
+        alignItems="flex-start"
+        container
+      >
+        {array.map(
+          (el: { id: number; image: string; status: string; name: string }) => (
+            <Grid key={el.id} item>
+              <CharacterCard
+                image={el.image}
+                status={el.status}
+                name={el.name}
+              />
+            </Grid>
+          )
+        )}
+      </Mui.Grid>
     </Mui.Grid>
   );
 }

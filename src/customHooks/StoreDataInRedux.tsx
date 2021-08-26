@@ -8,6 +8,7 @@ function StoreDataInRedux() {
   const [locLoad, setLocLoad] = React.useState(false);
   const dispatch = useDispatch();
   React.useEffect(() => {
+    const namesSet = new Set();
     const speciesSet = new Set();
     const statusSet = new Set();
     const genderSet = new Set();
@@ -20,7 +21,8 @@ function StoreDataInRedux() {
           dispatch(storePages({ category: filter, pageData: r.results }));
           if (filter === "characters") {
             r.results.forEach(
-              ({ gender, species, status }: { [k: string]: string }) => {
+              ({ gender, species, status, name }: { [k: string]: string }) => {
+                namesSet.add(name);
                 speciesSet.add(species);
                 statusSet.add(status);
                 genderSet.add(gender);
