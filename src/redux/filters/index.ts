@@ -8,29 +8,19 @@ const characters = createSlice({
       status: [],
       gender: [],
     },
-    planets: {
+    locations: {
       type: [],
       dimension: [],
     },
   },
   reducers: {
-    addCharactersFilter: (state, action) => ({
+    addFilter: (state, action) => ({
       ...state,
-      characters: {
-        ...state.characters,
-        [action.payload.filter]: action.payload.data,
-      },
-    }),
-    addPlanetsFilter: (state, action) => ({
-      ...state,
-      planets: {
-        ...state.planets,
-        [action.payload.filter]: action.payload.data,
-      },
+      [action.payload.filter]: action.payload.data,
     }),
   },
 });
 
 export default characters;
 
-export const { addCharactersFilter, addPlanetsFilter } = characters.actions;
+export const { addFilter } = characters.actions;
