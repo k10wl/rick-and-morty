@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type InitialStateType = {
+export type ApiFilterType = {
   characters: {
     [key: string]: string[];
     species: string[];
@@ -13,7 +13,8 @@ type InitialStateType = {
     dimension: string[];
   };
 };
-const initialState: InitialStateType = {
+
+const initialState: ApiFilterType = {
   characters: {
     species: [],
     status: [],

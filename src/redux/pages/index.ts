@@ -6,14 +6,14 @@ type Payload = {
   pageData: Character[][] | Location[][] | Episode[][];
 };
 
-type InitialStateType = {
+export type PagesStateType = {
   [k: string]: any;
   characters: Character[][];
   locations: Location[][];
   episodes: Episode[][];
 };
 
-const initialState: InitialStateType = {
+const initialState: PagesStateType = {
   characters: [],
   locations: [],
   episodes: [],

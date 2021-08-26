@@ -1,6 +1,11 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import filters from "./filters";
-import pages from "./pages";
+import filters, { ApiFilterType } from "./filters";
+import pages, { PagesStateType } from "./pages";
+
+export type DefaultRootState = {
+  filters: ApiFilterType;
+  pages: PagesStateType;
+};
 
 const reducer = combineReducers({
   filters: filters.reducer,
