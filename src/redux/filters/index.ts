@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const characters = createSlice({
-  name: "charactersFilter",
+  name: "apiFilter",
   initialState: {
     characters: {
       species: [],
