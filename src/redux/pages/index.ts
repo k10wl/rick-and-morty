@@ -1,4 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type Payload = {
+  category: string;
+  page: string;
+  pageData: any[];
+};
 
 const initialState = {
   characters: {},
@@ -10,7 +16,7 @@ const pages = createSlice({
   name: "pages",
   initialState,
   reducers: {
-    storePages: (state, action) => ({
+    storePages: (state, action: PayloadAction<Payload>) => ({
       ...state,
       [action.payload.category]: {
         ...[action.payload.category],
