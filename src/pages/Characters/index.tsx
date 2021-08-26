@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from "react";
 
-type Props = {};
-
-function Characters(props: Props) {
-  console.log(props);
+function Characters() {
   return (
     <div>
       <h1>Characters</h1>

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addFilter } from "../redux/filters";
+import { storePages } from "../redux/pages";
 
-function StoreFiltersInRedux() {
+function StoreDataInRedux() {
   const dispatch = useDispatch();
   useEffect(() => {
     const speciesSet = new Set();
@@ -14,6 +15,7 @@ function StoreFiltersInRedux() {
       fetch(url)
         .then((r) => r.json())
         .then((r) => {
+          dispatch(storePages({ category: filter, pageData: r.results }));
           if (filter === "characters") {
             r.results.forEach(
               ({ gender, species, status }: { [k: string]: string }) => {
@@ -52,9 +54,15 @@ function StoreFiltersInRedux() {
           }
         });
     }
-    fetchFilters("https://rickandmortyapi.com/api/character", "characters");
-    fetchFilters("https://rickandmortyapi.com/api/location", "locations");
+    fetchFilters(
+      "https://rickandmortyapi.com/api/character?page=1",
+      "characters"
+    );
+    fetchFilters(
+      "https://rickandmortyapi.com/api/location?page=1",
+      "locations"
+    );
   }, []);
 }
 
-export default StoreFiltersInRedux;
+export default StoreDataInRedux;

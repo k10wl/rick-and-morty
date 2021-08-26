@@ -1,27 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type Payload = {
-  category: string;
-  page: string;
-  pageData: any[];
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  characters: {},
-  locations: {},
-  episodes: {},
+  characters: [],
+  locations: [],
+  episodes: [],
 };
 
 const pages = createSlice({
   name: "pages",
   initialState,
   reducers: {
-    storePages: (state, action: PayloadAction<Payload>) => ({
+    storePages: (state, action) => ({
       ...state,
-      [action.payload.category]: {
-        ...[action.payload.category],
-        [action.payload.page]: action.payload.pageData,
-      },
+      [action.payload.category]: [
+        // @ts-ignore
+        ...state[action.payload.category],
+        action.payload.pageData,
+      ],
     }),
   },
 });
