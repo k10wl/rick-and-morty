@@ -1,38 +1,77 @@
-/* eslint-disable no-unused-vars */
 import * as React from "react";
 import * as Mui from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
-import CharacterCard from "./CharacterCard";
-import { Character } from "../../types";
+import CardContainer from "./CardContainer";
 import { DefaultRootState } from "../../redux";
+import { Character, InfoType } from "../../types";
 
 function Characters() {
   const filtersInitialState = {
     species: "none",
     status: "none",
     gender: "none",
+    page: 1,
   };
   const [charFilters, setCharFilters] = React.useState(filtersInitialState);
+  const [customFilter, setCustomFilter] = React.useState(false);
+  const [filteredChars, setFilteredChars] = React.useState<Character[]>([]);
+  const [nextExists, setNextExists] = React.useState(true);
   const { pages, filters } = useSelector((state: DefaultRootState) => state);
   const [currentPage, setCurrentPage] = React.useState(1);
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    if (e.currentTarget.value === "next") {
-      setCurrentPage(currentPage + 1);
-    } else if (e.currentTarget.value === "prev") {
-      setCurrentPage(currentPage - 1);
+    if (!customFilter) {
+      if (e.currentTarget.value === "next") {
+        setCurrentPage(currentPage + 1);
+      } else if (e.currentTarget.value === "prev") {
+        setCurrentPage(currentPage - 1);
+      }
+    }
+    if (customFilter) {
+      setCharFilters({
+        ...charFilters,
+        page:
+          e.currentTarget.value === "next"
+            ? charFilters.page + 1
+            : charFilters.page - 1,
+      });
     }
   }
   function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     setCharFilters({
       ...charFilters,
       [e.target.id]: e.target.value,
+      page: 1,
     });
   }
+  React.useEffect(() => {
+    const { page, status, species, gender } = charFilters;
+    const statusQuery = status !== "none" && `status=${status}`;
+    const speciesQuery = species !== "none" && `species=${species}`;
+    const genderQuery = gender !== "none" && `gender=${gender}`;
+    const combineQuery = [statusQuery, speciesQuery, genderQuery]
+      .filter(Boolean)
+      .join("&");
+    if (combineQuery) {
+      fetch(
+        `https://rickandmortyapi.com/api/character/?page=${page}&&${combineQuery}`
+      )
+        .then((r) => r.json())
+        .then(({ info, results }: { info: InfoType; results: Character[] }) => {
+          setFilteredChars(results);
+          setNextExists(info.next !== null);
+          setCurrentPage(page);
+          setCustomFilter(true);
+        });
+    }
+    if (combineQuery === "") {
+      setFilteredChars([]);
+      setCustomFilter(false);
+    }
+  }, [charFilters]);
   return (
     <>
-      <Mui.Grid container justify="center">
-        <Typography>Characters</Typography>
+      <Mui.Grid container justifyContent="center">
+        <Mui.Typography>Characters</Mui.Typography>
       </Mui.Grid>
       <Mui.Grid>
         <Mui.Typography>Select filter option</Mui.Typography>
@@ -65,27 +104,10 @@ function Characters() {
           ))}
         </select>
       </Mui.Grid>
-      <Mui.Grid
-        container
-        spacing={1}
-        direction="row"
-        justify="center"
-        alignItems="flex-start"
-      >
-        {pages.characters[currentPage - 1].map(
-          (el: { id: number; image: string; status: string; name: string }) => (
-            <Grid item>
-              <CharacterCard
-                key={el.id}
-                image={el.image}
-                status={el.status}
-                name={el.name}
-              />
-            </Grid>
-          )
-        )}
-      </Mui.Grid>
-      <Mui.Grid container justify="center" alignItems="center">
+      <CardContainer
+        array={customFilter ? filteredChars : pages.characters[currentPage - 1]}
+      />
+      <Mui.Grid container justifyContent="center" alignItems="center">
         <Mui.Button
           value="prev"
           onClick={(e) => handleClick(e)}
@@ -97,7 +119,7 @@ function Characters() {
         <Mui.Button
           value="next"
           onClick={(e) => handleClick(e)}
-          disabled={currentPage === pages.characters.length}
+          disabled={currentPage === pages.characters.length || !nextExists}
         >
           next
         </Mui.Button>
