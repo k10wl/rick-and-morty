@@ -4,8 +4,10 @@ import Characters from "./pages/Characters";
 import Episodes from "./pages/Episodes";
 import Locations from "./pages/Locations";
 import MyWatchList from "./pages/MyWatchList";
+import StoreFiltersInRedux from "./customHooks/StoreFiltersInRedux";
 
 function App() {
+  StoreFiltersInRedux();
   return (
     <Router>
       <ul>
