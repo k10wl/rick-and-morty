@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import * as React from "react";
 import { useDispatch } from "react-redux";
 import { addFilter } from "../redux/filters";
 import { storePages } from "../redux/pages";
 
 function StoreDataInRedux() {
+  const [charLoad, setCharLoad] = React.useState(false);
+  const [locLoad, setLocLoad] = React.useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
+  React.useEffect(() => {
     const speciesSet = new Set();
     const statusSet = new Set();
     const genderSet = new Set();
@@ -51,6 +53,11 @@ function StoreDataInRedux() {
                 filter === "characters" ? charactersFilter : locationsFilter,
             };
             dispatch(addFilter(result));
+            if (filter === "characters") {
+              setCharLoad(true);
+            } else {
+              setLocLoad(true);
+            }
           }
         });
     }
@@ -63,6 +70,7 @@ function StoreDataInRedux() {
       "locations"
     );
   }, []);
+  return [charLoad, locLoad];
 }
 
 export default StoreDataInRedux;

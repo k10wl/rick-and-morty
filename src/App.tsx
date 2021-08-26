@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Characters from "./pages/Characters";
 import Episodes from "./pages/Episodes";
 import Locations from "./pages/Locations";
@@ -8,10 +7,10 @@ import MyWatchList from "./pages/MyWatchList";
 import StoreDataInRedux from "./customHooks/StoreDataInRedux";
 
 function App() {
-  StoreDataInRedux();
-  // @ts-ignore
-  const { pages } = useSelector((store) => store);
-  console.log(pages);
+  const [charLoaded, locLoaded] = StoreDataInRedux();
+  if (!charLoaded && !locLoaded) {
+    return <h1>LOADING</h1>;
+  }
   return (
     <Router>
       <ul>
