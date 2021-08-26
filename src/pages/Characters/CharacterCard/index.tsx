@@ -13,7 +13,7 @@ function CharacterCard({ image, name, status }: Props) {
   return (
     <Mui.Card className={classes.card}>
       <Mui.CardActionArea>
-        <Mui.CardMedia component="img" image={image} title="rick_img" />
+        <Mui.CardMedia component="img" image={image} title={name} />
         <Mui.CardContent>
           <Mui.Typography>Name: {name}</Mui.Typography>
           <Mui.Typography>Status: {status}</Mui.Typography>
