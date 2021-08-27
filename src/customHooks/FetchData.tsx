@@ -1,8 +1,10 @@
 import * as React from "react";
-import { Location, Episode, InfoType } from "../types";
+import { Location, Episode, InfoType, Character } from "../types";
 
 function FetchData(url: string) {
-  const [data, setData] = React.useState<Episode[] | Location[]>([]);
+  const [data, setData] = React.useState<Episode[] | Location[] | Character[]>(
+    []
+  );
   const [loaded, setLoaded] = React.useState<boolean>(false);
   const [prev, setPrev] = React.useState<string | null>(null);
   const [next, setNext] = React.useState<string | null>(null);
@@ -16,7 +18,7 @@ function FetchData(url: string) {
           results,
         }: {
           info: InfoType;
-          results: Episode[] | Location[];
+          results: Episode[] | Location[] | Character[];
         }) => {
           setPrev(info !== undefined ? info.prev : null);
           setNext(info !== undefined ? info.next : null);
