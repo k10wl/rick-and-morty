@@ -13,17 +13,12 @@ function CardContainer({ array }: { array: Character[] }) {
         alignItems="flex-start"
         container
       >
-        {array.map(
-          (el: { id: number; image: string; status: string; name: string }) => (
-            <Grid key={el.id} item>
-              <CharacterCard
-                image={el.image}
-                status={el.status}
-                name={el.name}
-              />
-            </Grid>
-          )
-        )}
+        {array.map((el: Character) => (
+          <Grid key={el.id} item>
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <CharacterCard {...el} />
+          </Grid>
+        ))}
       </Mui.Grid>
     </Mui.Grid>
   );

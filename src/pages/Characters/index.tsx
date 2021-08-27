@@ -132,12 +132,7 @@ function Characters() {
         </select>
       </Mui.Grid>
       {loaded && filterResultsLoaded ? (
-        <Mui.Grid
-          container
-          spacing={1}
-          style={{ alignItems: "stretch" }}
-          direction="row"
-        >
+        <Mui.Grid container style={{ alignItems: "stretch" }} direction="row">
           <List array={customFilter ? customNames : names} />
           <CardContainer
             array={

@@ -1,11 +1,6 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
-
-type Props = {
-  image: string;
-  name: string;
-  status: string;
-};
+import { Character } from "../../../types";
 
 const useStyles = Mui.makeStyles((theme) => ({
   root: {
@@ -35,27 +30,84 @@ const useStyles = Mui.makeStyles((theme) => ({
   },
 }));
 
-function CharacterCard({ image, name, status }: Props) {
+function CharacterCard(props: Character) {
+  const {
+    image,
+    name,
+    status,
+    species,
+    gender,
+    origin,
+    location,
+    episode,
+    created,
+  } = props;
+
+  const displayEpisodes = episode.map((el) => {
+    const result = el.match(/(\d*)$/gm);
+    if (result) {
+      return result.filter(Boolean);
+    }
+    return "";
+  });
   const classes = useStyles();
+  const buttonRef = React.useRef(null);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = () => {
+    setAnchorEl(buttonRef.current);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <Mui.Card className={classes.root}>
-      <Mui.CardActionArea>
-        <div className={classes.details}>
-          <Mui.CardContent className={classes.content}>
-            <Mui.CardMedia
-              component="img"
-              image={image}
-              title={name}
-              className={classes.image}
-            />
-            <div className={classes.info}>
-              <Mui.Typography>Name: {name}</Mui.Typography>
-              <Mui.Typography>Status: {status}</Mui.Typography>
-            </div>
-          </Mui.CardContent>
-        </div>
-      </Mui.CardActionArea>
-    </Mui.Card>
+    <>
+      <Mui.Card className={classes.root}>
+        <Mui.CardActionArea onClick={handleClick} ref={buttonRef}>
+          <div className={classes.details}>
+            <Mui.CardContent className={classes.content}>
+              <Mui.CardMedia
+                component="img"
+                image={image}
+                title={name}
+                className={classes.image}
+              />
+              <div className={classes.info}>
+                <Mui.Typography>Name: {name}</Mui.Typography>
+                <Mui.Typography>Status: {status}</Mui.Typography>
+              </div>
+            </Mui.CardContent>
+          </div>
+        </Mui.CardActionArea>
+      </Mui.Card>
+      <Mui.Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Mui.Typography>Name: {name}</Mui.Typography>
+        <Mui.Typography>Status: {status}</Mui.Typography>
+        <Mui.Typography>Species: {species}</Mui.Typography>
+        <Mui.Typography>Gender: {gender}</Mui.Typography>
+        <Mui.Typography>Origin: {origin.name}</Mui.Typography>
+        <Mui.Typography>location: {location.name}</Mui.Typography>
+        <Mui.Typography>
+          created: {String(created).match(/(\d{4})-(\d{2})-(\d{2})/gm)}
+        </Mui.Typography>
+        <Mui.Typography>episodes: {displayEpisodes.join(", ")}</Mui.Typography>
+      </Mui.Popover>
+    </>
   );
 }
 
