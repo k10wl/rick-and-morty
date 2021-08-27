@@ -40,3 +40,5 @@ export type InfoType = {
   next: string | null;
   prev: string | null;
 };
+
+export type PageType = [string | null, string | null];

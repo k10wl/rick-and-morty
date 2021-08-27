@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
 import EpisodesTable from "./EpisodesTable";
-import { Episode } from "../../types";
+import { Episode, PageType } from "../../types";
 import FetchData from "../../customHooks/FetchData";
 
 function Episodes() {
@@ -9,10 +9,7 @@ function Episodes() {
   const defaultUrl = "https://rickandmortyapi.com/api/episode";
   const [apiUrl, setApiUrl] = React.useState<string>(defaultUrl);
   const [filter, setFilter] = React.useState("");
-  const [page, setPage] = React.useState<[string | null, string | null]>([
-    null,
-    null,
-  ]);
+  const [page, setPage] = React.useState<PageType>([null, null]);
   const { loaded, data, prev, next } = FetchData(apiUrl);
   React.useEffect(() => {
     if (loaded) {

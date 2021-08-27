@@ -3,10 +3,8 @@ import * as Mui from "@material-ui/core";
 import { useSelector } from "react-redux";
 import LocationsTable from "./LocationsTable";
 import FetchData from "../../customHooks/FetchData";
-import { Location } from "../../types";
+import { Location, PageType } from "../../types";
 import { DefaultRootState } from "../../redux";
-
-type PageType = [string | null, string | null];
 
 function Locations() {
   const defaultUrl = "https://rickandmortyapi.com/api/location";
