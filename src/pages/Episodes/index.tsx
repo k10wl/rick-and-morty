@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Mui from "@material-ui/core";
 import EpisodesTable from "./EpisodesTable";
 import { Episode } from "../../types";
-import FetchEpisodes from "../../customHooks/FetchEpisodes";
+import FetchData from "../../customHooks/FetchData";
 
 function Episodes() {
   const [apiData, setApiData] = React.useState<Episode[]>([]);
@@ -13,11 +13,11 @@ function Episodes() {
     null,
     null,
   ]);
-  const { loaded, episodes, prev, next } = FetchEpisodes(apiUrl);
+  const { loaded, data, prev, next } = FetchData(apiUrl);
   React.useEffect(() => {
     if (loaded) {
       setPage([prev, next]);
-      setApiData(episodes);
+      setApiData(data as Episode[]);
     }
   }, [loaded]);
   function handlePagination(url: string | null) {
