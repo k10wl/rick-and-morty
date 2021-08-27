@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import * as React from "react";
 import * as Mui from "@material-ui/core";
 import { useSelector } from "react-redux";
@@ -8,6 +9,7 @@ import FetchData from "../../customHooks/FetchData";
 import List from "./List";
 import GetAllNames from "../../customHooks/GetAllNames";
 import PaginationButtons from "../../Components/PaginationButtons";
+import useStyles from "../../UI/useStyles";
 
 type CharFilter = {
   species: string;
@@ -16,15 +18,16 @@ type CharFilter = {
 };
 
 function Characters() {
+  const classes = useStyles();
   const defaultUrl = "https://rickandmortyapi.com/api/character";
   const [apiUrl, setApiUrl] = React.useState<string>(defaultUrl);
   const [apiData, setApiData] = React.useState<Character[]>([]);
   const [page, setPage] = React.useState<PageType>([null, null]);
   const [dataReady, setDataReady] = React.useState<boolean>(false);
   const defaultFiltersState: CharFilter = {
-    species: "none",
-    status: "none",
-    gender: "none",
+    species: "",
+    status: "",
+    gender: "",
   };
   const [selectedFilters, setSelectedFilters] =
     React.useState<CharFilter>(defaultFiltersState);
@@ -47,14 +50,20 @@ function Characters() {
       setApiUrl(url);
     }
   }
-  function handleFilterSelection(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedFilters({ ...selectedFilters, [e.target.id]: e.target.value });
+  function handleFilterSelection(
+    e: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) {
+    console.log(e);
+    setSelectedFilters({
+      ...selectedFilters,
+      [e.target.name as string]: e.target.value,
+    });
   }
   React.useEffect(() => {
     const { species, status, gender } = selectedFilters;
-    const speciesQuery = species !== "none" && `species=${species}`;
-    const statusQuery = status !== "none" && `status=${status}`;
-    const genderQuery = gender !== "none" && `gender=${gender}`;
+    const speciesQuery = species !== "" && `species=${species}`;
+    const statusQuery = status !== "" && `status=${status}`;
+    const genderQuery = gender !== "" && `gender=${gender}`;
     const query = [speciesQuery, statusQuery, genderQuery]
       .filter(Boolean)
       .join("&");
@@ -69,54 +78,59 @@ function Characters() {
       </Mui.Grid>
       <Mui.Grid>
         <Mui.Typography>Filter by</Mui.Typography>
-        <label htmlFor="species">
-          Species:
-          <select
-            onChange={handleFilterSelection}
-            id="species"
+        <Mui.FormControl className={classes.formControl}>
+          <Mui.InputLabel id="species">Species</Mui.InputLabel>
+          <Mui.Select
+            labelId="species"
+            name="species"
             value={selectedFilters.species}
+            onChange={handleFilterSelection}
           >
-            <option value="none">none</option>
+            <Mui.MenuItem value="">(no filter)</Mui.MenuItem>
             {filters.characters.species.map((el) => (
-              <option key={el} value={el}>
+              <Mui.MenuItem key={el} value={el}>
                 {el}
-              </option>
+              </Mui.MenuItem>
             ))}
-          </select>
-        </label>
-        <label htmlFor="status">
-          Status:
-          <select
-            onChange={handleFilterSelection}
-            id="status"
+          </Mui.Select>
+        </Mui.FormControl>
+
+        <Mui.FormControl className={classes.formControl}>
+          <Mui.InputLabel id="status">Status</Mui.InputLabel>
+          <Mui.Select
+            labelId="status"
+            name="status"
             value={selectedFilters.status}
-          >
-            <option value="none">none</option>
-            {filters.characters.status.map((el) => (
-              <option key={el} value={el}>
-                {el}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="gender">
-          Gender:
-          <select
             onChange={handleFilterSelection}
-            id="gender"
-            value={selectedFilters.gender}
           >
-            <option value="none">none</option>
-            {filters.characters.gender.map((el) => (
-              <option key={el} value={el}>
+            <Mui.MenuItem value="">(no filter)</Mui.MenuItem>
+            {filters.characters.status.map((el) => (
+              <Mui.MenuItem key={el} value={el}>
                 {el}
-              </option>
+              </Mui.MenuItem>
             ))}
-          </select>
-        </label>
+          </Mui.Select>
+        </Mui.FormControl>
+
+        <Mui.FormControl className={classes.formControl}>
+          <Mui.InputLabel id="gender">Gender</Mui.InputLabel>
+          <Mui.Select
+            labelId="gender"
+            name="gender"
+            value={selectedFilters.gender}
+            onChange={handleFilterSelection}
+          >
+            <Mui.MenuItem value="">(no filter)</Mui.MenuItem>
+            {filters.characters.gender.map((el) => (
+              <Mui.MenuItem key={el} value={el}>
+                {el}
+              </Mui.MenuItem>
+            ))}
+          </Mui.Select>
+        </Mui.FormControl>
       </Mui.Grid>
       <Mui.Grid container style={{ alignItems: "stretch" }} direction="row">
-        {namesLoaded && <List array={namesList} />}
+        {/* {namesLoaded && <List array={namesList} />} */}
         {dataReady ? <CardContainer array={apiData} /> : <p>loading</p>}
       </Mui.Grid>
       <Mui.Grid container justifyContent="center" alignItems="center">

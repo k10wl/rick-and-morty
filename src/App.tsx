@@ -15,14 +15,18 @@ function App() {
   }
   return (
     <Router>
-      <Mui.Grid container direction="column">
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Characters} />
-          <Route exact path="/episodes" component={Episodes} />
-          <Route exact path="/locations" component={Locations} />
-          <Route exact path="/watchlist" component={MyWatchList} />
-        </Switch>
+      <Header />
+      <Mui.Grid container>
+        <Mui.Grid item sm />
+        <Mui.Grid container item direction="column" sm={10}>
+          <Switch>
+            <Route exact path="/" component={Characters} />
+            <Route exact path="/episodes" component={Episodes} />
+            <Route exact path="/locations" component={Locations} />
+            <Route exact path="/watchlist" component={MyWatchList} />
+          </Switch>
+        </Mui.Grid>
+        <Mui.Grid item sm />
       </Mui.Grid>
     </Router>
   );

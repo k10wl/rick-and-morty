@@ -6,7 +6,7 @@ import { Character } from "../../../types";
 
 function CardContainer({ array }: { array: Character[] }) {
   return (
-    <Mui.Grid item xs={9}>
+    <Mui.Grid item sm>
       <Mui.Grid
         direction="row"
         justifyContent="center"
