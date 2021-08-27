@@ -23,15 +23,15 @@ function LocationsTable({ array, page, handleSelect }: Props) {
         </Mui.TableHead>
         <Mui.TableBody>
           {array.map((el) => (
-            <Mui.TableRow>
+            <Mui.TableRow key={el.id}>
               <Mui.TableCell>{el.name}</Mui.TableCell>
               <Mui.TableCell>{el.type}</Mui.TableCell>
               <Mui.TableCell>{el.dimension}</Mui.TableCell>
             </Mui.TableRow>
           ))}
         </Mui.TableBody>
+        <TableFooterPagination page={page} handleSelect={handleSelect} />
       </Mui.Table>
-      <TableFooterPagination page={page} handleSelect={handleSelect} />
     </Mui.TableContainer>
   );
 }
