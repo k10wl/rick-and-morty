@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
+import MyTableCell from "../../../UI/MyTableCell";
 import { Episode } from "../../../types";
+import TableFooterPagination from "../../../Components/TableFooterPagination";
 
 type Props = {
   array: Episode[];
@@ -8,25 +10,15 @@ type Props = {
   handleSelect: (url: string | null) => void;
 };
 
-const StyledTableCell = Mui.withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(Mui.TableCell);
-
 function EpisodesTable({ array, page, handleSelect }: Props) {
   return (
     <Mui.TableContainer component={Mui.Paper}>
       <Mui.Table>
         <Mui.TableHead>
           <Mui.TableRow>
-            <StyledTableCell>Episode name</StyledTableCell>
-            <StyledTableCell align="right">Episode</StyledTableCell>
-            <StyledTableCell align="right">Air date</StyledTableCell>
+            <MyTableCell>Episode name</MyTableCell>
+            <MyTableCell align="right">Episode</MyTableCell>
+            <MyTableCell align="right">Air date</MyTableCell>
           </Mui.TableRow>
         </Mui.TableHead>
         <Mui.TableBody>
@@ -38,26 +30,7 @@ function EpisodesTable({ array, page, handleSelect }: Props) {
             </Mui.TableRow>
           ))}
         </Mui.TableBody>
-        <Mui.TableFooter>
-          <Mui.TableRow>
-            <Mui.TableCell />
-            <Mui.TableCell />
-            <Mui.TableCell align="right">
-              <Mui.Button
-                disabled={page[0] === null}
-                onClick={() => handleSelect(page[0])}
-              >
-                prev
-              </Mui.Button>
-              <Mui.Button
-                disabled={page[1] === null}
-                onClick={() => handleSelect(page[1])}
-              >
-                next
-              </Mui.Button>
-            </Mui.TableCell>
-          </Mui.TableRow>
-        </Mui.TableFooter>
+        <TableFooterPagination page={page} handleSelect={handleSelect} />
       </Mui.Table>
     </Mui.TableContainer>
   );
