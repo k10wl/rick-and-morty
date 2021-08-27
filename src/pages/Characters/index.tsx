@@ -7,6 +7,7 @@ import { Character, PageType } from "../../types";
 import FetchData from "../../customHooks/FetchData";
 import List from "./List";
 import GetAllNames from "../../customHooks/GetAllNames";
+import PaginationButtons from "../../Components/PaginationButtons";
 
 type CharFilter = {
   species: string;
@@ -19,6 +20,7 @@ function Characters() {
   const [apiUrl, setApiUrl] = React.useState<string>(defaultUrl);
   const [apiData, setApiData] = React.useState<Character[]>([]);
   const [page, setPage] = React.useState<PageType>([null, null]);
+  const [dataReady, setDataReady] = React.useState<boolean>(false);
   const defaultFiltersState: CharFilter = {
     species: "none",
     status: "none",
@@ -33,7 +35,11 @@ function Characters() {
   React.useEffect(() => {
     if (loaded) {
       setApiData(data as Character[]);
+      setDataReady(true);
       setPage([prev, next]);
+    }
+    if (!loaded) {
+      setDataReady(false);
     }
   }, [loaded]);
   function handlePagination(url: string | null) {
@@ -62,63 +68,59 @@ function Characters() {
         <Mui.Typography>Characters</Mui.Typography>
       </Mui.Grid>
       <Mui.Grid>
-        <Mui.Typography>Select filter option</Mui.Typography>
-        <select
-          onChange={handleFilterSelection}
-          id="species"
-          value={selectedFilters.species}
-        >
-          <option value="none">none</option>
-          {filters.characters.species.map((el) => (
-            <option key={el} value={el}>
-              {el}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={handleFilterSelection}
-          id="status"
-          value={selectedFilters.status}
-        >
-          <option value="none">none</option>
-          {filters.characters.status.map((el) => (
-            <option key={el} value={el}>
-              {el}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={handleFilterSelection}
-          id="gender"
-          value={selectedFilters.gender}
-        >
-          <option value="none">none</option>
-          {filters.characters.gender.map((el) => (
-            <option key={el} value={el}>
-              {el}
-            </option>
-          ))}
-        </select>
+        <Mui.Typography>Filter by</Mui.Typography>
+        <label htmlFor="species">
+          Species:
+          <select
+            onChange={handleFilterSelection}
+            id="species"
+            value={selectedFilters.species}
+          >
+            <option value="none">none</option>
+            {filters.characters.species.map((el) => (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="status">
+          Status:
+          <select
+            onChange={handleFilterSelection}
+            id="status"
+            value={selectedFilters.status}
+          >
+            <option value="none">none</option>
+            {filters.characters.status.map((el) => (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="gender">
+          Gender:
+          <select
+            onChange={handleFilterSelection}
+            id="gender"
+            value={selectedFilters.gender}
+          >
+            <option value="none">none</option>
+            {filters.characters.gender.map((el) => (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </label>
       </Mui.Grid>
       <Mui.Grid container style={{ alignItems: "stretch" }} direction="row">
         {namesLoaded && <List array={namesList} />}
-        <CardContainer array={apiData} />
+        {dataReady ? <CardContainer array={apiData} /> : <p>loading</p>}
       </Mui.Grid>
       <Mui.Grid container justifyContent="center" alignItems="center">
-        <Mui.Button
-          value="prev"
-          onClick={() => handlePagination(page[0])}
-          disabled={page[0] === null}
-        >
-          {`<`}
-        </Mui.Button>
-        <Mui.Button
-          value="next"
-          onClick={() => handlePagination(page[1])}
-          disabled={page[1] === null}
-        >
-          {`>`}
-        </Mui.Button>
+        <PaginationButtons page={page} handleSelect={handlePagination} />
       </Mui.Grid>
     </>
   );
