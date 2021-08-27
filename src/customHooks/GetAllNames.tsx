@@ -17,6 +17,7 @@ function GetAllNames(url: Props) {
     function fetchCallback(apiUrl: string) {
       const [, request] = apiUrl.split("?");
       if (names.length !== 0 && (apiUrl === "" || request === "")) {
+        setNamesList(names);
         return;
       }
       fetch(apiUrl)
