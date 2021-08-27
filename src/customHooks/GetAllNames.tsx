@@ -18,6 +18,7 @@ function GetAllNames(url: Props) {
       const [, request] = apiUrl.split("?");
       if (names.length !== 0 && (apiUrl === "" || request === "")) {
         setNamesList(names);
+        setLoaded(true);
         return;
       }
       fetch(apiUrl)
@@ -42,7 +43,7 @@ function GetAllNames(url: Props) {
         });
     }
     fetchCallback(url);
-  }, [url]);
+  }, []);
   return { loaded, namesList };
 }
 
