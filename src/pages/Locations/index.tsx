@@ -5,6 +5,7 @@ import LocationsTable from "./LocationsTable";
 import FetchData from "../../customHooks/FetchData";
 import { Location, PageType } from "../../types";
 import { DefaultRootState } from "../../redux";
+import useStyles from "../../UI/useStyles";
 
 function Locations() {
   const defaultUrl = "https://rickandmortyapi.com/api/location";
@@ -37,8 +38,13 @@ function Locations() {
     setInputFilter(e.target.value);
   }
 
-  function handleFilterSelection(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedFilters({ ...selectedFilters, [e.target.id]: e.target.value });
+  function handleFilterSelection(
+    e: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) {
+    setSelectedFilters({
+      ...selectedFilters,
+      [e.target.name as string]: e.target.value,
+    });
   }
   React.useEffect(() => {
     const { type, dimension } = selectedFilters;
@@ -51,6 +57,7 @@ function Locations() {
       .join("&");
     setApiUrl(`${defaultUrl}?${query}`);
   }, [selectedFilters, inputFilter]);
+  const classes = useStyles();
 
   return (
     <div>
@@ -60,26 +67,41 @@ function Locations() {
         onChange={handleFilterInput}
         label="Filer by name"
       />
-      <select id="type" defaultValue="none" onChange={handleFilterSelection}>
-        <option value="none">None</option>
-        {filters.locations.type.map((el) => (
-          <option value={el} key={el}>
-            {el}
-          </option>
-        ))}
-      </select>
-      <select
-        id="dimension"
-        defaultValue="none"
-        onChange={handleFilterSelection}
-      >
-        <option value="none">None</option>
-        {filters.locations.dimension.map((el) => (
-          <option value={el} key={el}>
-            {el}
-          </option>
-        ))}
-      </select>
+
+      <Mui.FormControl className={classes.formControl}>
+        <Mui.InputLabel id="type">Type</Mui.InputLabel>
+        <Mui.Select
+          labelId="type"
+          name="type"
+          value={selectedFilters.type}
+          onChange={handleFilterSelection}
+        >
+          <Mui.MenuItem value="">(no filters)</Mui.MenuItem>
+          {filters.locations.type.map((el) => (
+            <Mui.MenuItem value={el} key={el}>
+              {el}
+            </Mui.MenuItem>
+          ))}
+        </Mui.Select>
+      </Mui.FormControl>
+
+      <Mui.FormControl className={classes.formControl}>
+        <Mui.InputLabel id="dimension">Dimension</Mui.InputLabel>
+        <Mui.Select
+          labelId="dimension"
+          name="dimension"
+          value={selectedFilters.dimension}
+          onChange={handleFilterSelection}
+        >
+          <Mui.MenuItem value="">(no filters)</Mui.MenuItem>
+          {filters.locations.dimension.map((el) => (
+            <Mui.MenuItem value={el} key={el}>
+              {el}
+            </Mui.MenuItem>
+          ))}
+        </Mui.Select>
+      </Mui.FormControl>
+
       <LocationsTable
         array={apiData}
         page={page}
