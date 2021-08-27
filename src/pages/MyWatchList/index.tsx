@@ -15,7 +15,7 @@ type ToWatchType = {
 };
 
 function MyWatchList() {
-  const [input, setInput] = React.useState("");
+  const [input, setInput] = React.useState<string>("");
   const [toWatch, setToWatch] = React.useState<ToWatchType[]>([]);
   React.useEffect(() => {
     if (localStorage.getItem("comments")) {

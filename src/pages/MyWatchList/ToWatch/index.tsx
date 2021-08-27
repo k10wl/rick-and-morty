@@ -5,9 +5,7 @@ type Props = {
   id: number;
   text: string;
   completed: boolean;
-  // eslint-disable-next-line no-unused-vars
   handleToggle: (id: number) => void;
-  // eslint-disable-next-line no-unused-vars
   handleRemove: (id: number) => void;
 };
 
