@@ -6,8 +6,6 @@ import CardContainer from "./CardContainer";
 import { DefaultRootState } from "../../redux";
 import { Character, PageType } from "../../types";
 import FetchData from "../../customHooks/FetchData";
-import List from "./List";
-import GetAllNames from "../../customHooks/GetAllNames";
 import PaginationButtons from "../../Components/PaginationButtons";
 import useStyles from "../../UI/useStyles";
 
@@ -53,7 +51,6 @@ function Characters() {
   function handleFilterSelection(
     e: React.ChangeEvent<{ name?: string; value: unknown }>
   ) {
-    console.log(e);
     setSelectedFilters({
       ...selectedFilters,
       [e.target.name as string]: e.target.value,
@@ -70,7 +67,6 @@ function Characters() {
     setApiUrl(`${defaultUrl}?${query}`);
   }, [selectedFilters]);
 
-  const { loaded: namesLoaded, namesList } = GetAllNames(defaultUrl);
   return (
     <Mui.Grid className={classes.tabRoot}>
       <Mui.Grid container justifyContent="center">
@@ -92,7 +88,7 @@ function Characters() {
           characters
         </Mui.Typography>
       </Mui.Grid>
-      <Mui.Grid container alignItems="center" justifyContent="center" md>
+      <Mui.Grid container alignItems="center" justifyContent="center">
         <Mui.FormControl className={classes.formControl}>
           <Mui.InputLabel id="species">Filter by species</Mui.InputLabel>
           <Mui.Select
