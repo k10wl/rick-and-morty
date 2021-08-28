@@ -1,13 +1,16 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import { useSelector } from "react-redux";
 import EpisodesTable from "./EpisodesTable";
 import { Episode, PageType } from "../../types";
 import FetchData from "../../customHooks/FetchData";
 import useStyles from "../../UI/useStyles";
+import { DefaultRootState } from "../../redux";
 
 function Episodes() {
-  const [apiData, setApiData] = React.useState<Episode[]>([]);
+  const { pages } = useSelector((state: DefaultRootState) => state);
+  const [apiData, setApiData] = React.useState<Episode[]>(pages.episodes);
   const defaultUrl = "https://rickandmortyapi.com/api/episode";
   const [apiUrl, setApiUrl] = React.useState<string>(defaultUrl);
   const [filter, setFilter] = React.useState("");
@@ -49,7 +52,7 @@ function Episodes() {
       <form onSubmit={handleSubmit}>
         <Mui.Grid container justifyContent="center" alignItems="center">
           <Mui.TextField
-            label="Filter"
+            label="Enter filter"
             value={filter}
             onChange={handleFilterInput}
             fullWidth

@@ -3,8 +3,9 @@ import { createStyles, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) =>
   createStyles({
     tabRoot: {
-      padding: "25px 0",
+      padding: "25px 0 50px",
       backgroundColor: "white",
+      borderRadius: "0 0 50px 50px",
     },
     card: {
       width: "300px",
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme) =>
       border: "1px solid gray",
       padding: "5px",
       borderRadius: "5px",
+      backgroundColor: "#f1f1f1",
       "&:hover": {
         cursor: "default",
       },

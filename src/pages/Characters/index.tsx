@@ -19,7 +19,8 @@ function Characters() {
   const classes = useStyles();
   const defaultUrl = "https://rickandmortyapi.com/api/character";
   const [apiUrl, setApiUrl] = React.useState<string>(defaultUrl);
-  const [apiData, setApiData] = React.useState<Character[]>([]);
+  const { pages } = useSelector((state: DefaultRootState) => state);
+  const [apiData, setApiData] = React.useState<Character[]>(pages.characters);
   const [page, setPage] = React.useState<PageType>([null, null]);
   const [dataReady, setDataReady] = React.useState<boolean>(false);
   const defaultFiltersState: CharFilter = {
@@ -141,8 +142,7 @@ function Characters() {
         </Mui.FormControl>
       </Mui.Grid>
       <Mui.Grid container style={{ alignItems: "stretch" }} direction="row">
-        {/* {namesLoaded && <List array={namesList} />} */}
-        {dataReady ? <CardContainer array={apiData} /> : <p>loading</p>}
+        <CardContainer array={apiData} />
       </Mui.Grid>
       <Mui.Grid container justifyContent="center" alignItems="center">
         <PaginationButtons page={page} handleSelect={handlePagination} />

@@ -2,7 +2,7 @@ import * as Mui from "@material-ui/core";
 
 const MyTableCell = Mui.withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#4e087d",
     color: theme.palette.common.white,
   },
   body: {

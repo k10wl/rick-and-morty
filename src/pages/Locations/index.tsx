@@ -2,16 +2,19 @@ import * as React from "react";
 import * as Mui from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { FilterList } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import LocationsTable from "./LocationsTable";
 import FetchData from "../../customHooks/FetchData";
 import { Location, PageType } from "../../types";
 import useStyles from "../../UI/useStyles";
 import FiltersPopover from "./FiltersPopover";
+import { DefaultRootState } from "../../redux";
 
 function Locations() {
   const defaultUrl = "https://rickandmortyapi.com/api/location";
   const [apiUrl, setApiUrl] = React.useState(defaultUrl);
-  const [apiData, setApiData] = React.useState<Location[]>([]);
+  const { pages } = useSelector((state: DefaultRootState) => state);
+  const [apiData, setApiData] = React.useState<Location[]>(pages.locations);
   const [page, setPage] = React.useState<PageType>([null, null]);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -90,14 +93,16 @@ function Locations() {
           <Mui.TextField
             value={inputFilter}
             onChange={handleFilterInput}
-            label="Filer by name"
+            label="Enter filter"
             fullWidth
             InputProps={{
               endAdornment: (
                 <>
-                  <Mui.IconButton onClick={handleOpen}>
-                    <FilterList />
-                  </Mui.IconButton>
+                  <Mui.Tooltip title="More filters" placement="top" arrow>
+                    <Mui.IconButton onClick={handleOpen}>
+                      <FilterList />
+                    </Mui.IconButton>
+                  </Mui.Tooltip>
                   <Mui.IconButton onClick={handleSubmit}>
                     <SearchIcon />
                   </Mui.IconButton>

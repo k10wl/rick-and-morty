@@ -37,7 +37,7 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
     >
       <Mui.Grid className={classes.popoverRoot}>
         <Mui.Typography align="center" variant="h6">
-          MULTI PASS
+          Character passport
         </Mui.Typography>
         <Mui.Grid container direction="row" alignItems="center">
           <Mui.Grid>
@@ -133,9 +133,12 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
                 </Mui.Typography>
               }
             >
-              <Mui.Typography className={classes.popoverEpisodes}>
-                Appeared in
-              </Mui.Typography>
+              <Mui.Grid className={classes.popoverEpisodes}>
+                <Mui.Typography align="center">Appeared in</Mui.Typography>
+                <Mui.Typography align="center" variant="subtitle2">
+                  (hover me)
+                </Mui.Typography>
+              </Mui.Grid>
             </Mui.Tooltip>
           </Mui.Grid>
         </Mui.Grid>

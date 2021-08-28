@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { addFilter } from "../redux/filters";
-import { storePages } from "../redux/pages";
 
 function StoreDataInRedux() {
   const [charLoad, setCharLoad] = React.useState(false);
@@ -18,7 +17,6 @@ function StoreDataInRedux() {
       fetch(url)
         .then((r) => r.json())
         .then((r) => {
-          dispatch(storePages({ category: filter, pageData: r.results }));
           if (filter === "characters") {
             r.results.forEach(
               ({ gender, species, status, name }: { [k: string]: string }) => {

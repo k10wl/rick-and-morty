@@ -1,13 +1,24 @@
 import React from "react";
+import * as Mui from "@material-ui/core";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux";
 
+const theme = Mui.createTheme({
+  palette: {
+    primary: {
+      main: "#4e087d",
+    },
+  },
+});
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Mui.MuiThemeProvider theme={theme}>
+      <App />
+    </Mui.MuiThemeProvider>
   </Provider>,
   document.getElementById("root")
 );
