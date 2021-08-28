@@ -91,6 +91,9 @@ const useStyles = makeStyles((theme) =>
         cursor: "default",
       },
     },
+    textFieldSpacing: {
+      marginBottom: "15px",
+    },
   })
 );
 

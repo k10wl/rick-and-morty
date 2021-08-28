@@ -52,6 +52,7 @@ function Episodes() {
       <form onSubmit={handleSubmit}>
         <Mui.Grid container justifyContent="center" alignItems="center">
           <Mui.TextField
+            className={classes.textFieldSpacing}
             label="Enter filter"
             value={filter}
             onChange={handleFilterInput}
@@ -59,7 +60,7 @@ function Episodes() {
             InputProps={{
               endAdornment: (
                 <Mui.Grid>
-                  <Mui.IconButton onClick={handleSubmit}>
+                  <Mui.IconButton onClick={handleSubmit} color="primary">
                     <SearchIcon />
                   </Mui.IconButton>
                 </Mui.Grid>

@@ -91,6 +91,7 @@ function Locations() {
       <form onSubmit={handleSubmit}>
         <Mui.Grid container justifyContent="center" alignItems="center">
           <Mui.TextField
+            className={classes.textFieldSpacing}
             value={inputFilter}
             onChange={handleFilterInput}
             label="Enter filter"
@@ -99,11 +100,11 @@ function Locations() {
               endAdornment: (
                 <>
                   <Mui.Tooltip title="More filters" placement="top" arrow>
-                    <Mui.IconButton onClick={handleOpen}>
+                    <Mui.IconButton onClick={handleOpen} color="primary">
                       <FilterList />
                     </Mui.IconButton>
                   </Mui.Tooltip>
-                  <Mui.IconButton onClick={handleSubmit}>
+                  <Mui.IconButton onClick={handleSubmit} color="primary">
                     <SearchIcon />
                   </Mui.IconButton>
                 </>

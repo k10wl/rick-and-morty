@@ -29,12 +29,12 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
           </Mui.Grid>
           <div>
             <Mui.Tooltip title="Toggle completed">
-              <Mui.IconButton onClick={() => handleToggle(id)}>
+              <Mui.IconButton onClick={() => handleToggle(id)} color="primary">
                 <CheckIcon />
               </Mui.IconButton>
             </Mui.Tooltip>
             <Mui.Tooltip title="Remove task">
-              <Mui.IconButton onClick={() => handleRemove(id)}>
+              <Mui.IconButton onClick={() => handleRemove(id)} color="primary">
                 <ClearIcon />
               </Mui.IconButton>
             </Mui.Tooltip>
