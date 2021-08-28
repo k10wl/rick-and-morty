@@ -13,8 +13,6 @@ type Props = {
 };
 
 function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
-  // const circleColor = completed ? taskCompleted : "red";
-  console.log(completed);
   const classes = useStyles();
   return (
     <Mui.TableRow>
