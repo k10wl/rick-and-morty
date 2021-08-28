@@ -41,6 +41,50 @@ const useStyles = makeStyles((theme) =>
         backgroundColor: "green",
       },
     },
+    imageRoot: {
+      display: "flex",
+      width: "300px",
+      height: "364px",
+      margin: "10px",
+    },
+    details: {
+      display: "flex",
+      flexDirection: "column",
+      flexFlow: "column",
+    },
+    content: {
+      flex: "1 0 auto",
+    },
+    image: {
+      height: "268px",
+      borderRadius: "20px",
+    },
+    info: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      paddingLeft: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
+    popoverRadius: {
+      borderRadius: "30px",
+    },
+    popoverRoot: {
+      width: "500px",
+      padding: "0 7px",
+    },
+    popoverImg: {
+      width: "150px",
+      height: "150px",
+    },
+    popoverEpisodes: {
+      border: "1px solid gray",
+      padding: "5px",
+      borderRadius: "5px",
+      "&:hover": {
+        cursor: "default",
+      },
+    },
   })
 );
 

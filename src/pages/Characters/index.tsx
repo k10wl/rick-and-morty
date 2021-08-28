@@ -72,7 +72,7 @@ function Characters() {
 
   const { loaded: namesLoaded, namesList } = GetAllNames(defaultUrl);
   return (
-    <>
+    <Mui.Grid style={{ backgroundColor: "white" }}>
       <Mui.Grid container justifyContent="center">
         <Mui.Typography>Characters</Mui.Typography>
       </Mui.Grid>
@@ -136,7 +136,7 @@ function Characters() {
       <Mui.Grid container justifyContent="center" alignItems="center">
         <PaginationButtons page={page} handleSelect={handlePagination} />
       </Mui.Grid>
-    </>
+    </Mui.Grid>
   );
 }
 
