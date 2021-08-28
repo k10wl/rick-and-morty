@@ -1,26 +1,29 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
-import { useSelector } from "react-redux";
+import SearchIcon from "@material-ui/icons/Search";
+import { FilterList } from "@material-ui/icons";
 import LocationsTable from "./LocationsTable";
 import FetchData from "../../customHooks/FetchData";
 import { Location, PageType } from "../../types";
-import { DefaultRootState } from "../../redux";
 import useStyles from "../../UI/useStyles";
+import FiltersPopover from "./FiltersPopover";
 
 function Locations() {
   const defaultUrl = "https://rickandmortyapi.com/api/location";
   const [apiUrl, setApiUrl] = React.useState(defaultUrl);
   const [apiData, setApiData] = React.useState<Location[]>([]);
   const [page, setPage] = React.useState<PageType>([null, null]);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const [inputFilter, setInputFilter] = React.useState<string>("");
+  const [forceUpdate, setForceUpdate] = React.useState<boolean>(false);
   const defaultFiltersState = {
-    type: "none",
-    dimension: "none",
+    type: "",
+    dimension: "",
   };
   const [selectedFilters, setSelectedFilters] =
     React.useState<{ type: string; dimension: string }>(defaultFiltersState);
-
-  const { filters } = useSelector((state: DefaultRootState) => state);
 
   const { loaded, data, prev, next } = FetchData(apiUrl);
   React.useEffect(() => {
@@ -46,68 +49,75 @@ function Locations() {
       [e.target.name as string]: e.target.value,
     });
   }
+  function handleSubmit(
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) {
+    if (typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+    setForceUpdate(!forceUpdate);
+  }
   React.useEffect(() => {
     const { type, dimension } = selectedFilters;
-    const typeQuery = type !== "none" && `type=${type}`;
-    const dimensionQuery = dimension !== "none" && `dimension=${dimension}`;
+    const typeQuery = type !== "" && `type=${type}`;
+    const dimensionQuery = dimension !== "" && `dimension=${dimension}`;
     const textQuery =
       inputFilter.replace(/ /g, "") !== "" ? `name=${inputFilter}` : "";
     const query = [textQuery, typeQuery, dimensionQuery]
       .filter(Boolean)
       .join("&");
     setApiUrl(`${defaultUrl}?${query}`);
-  }, [selectedFilters, inputFilter]);
+  }, [forceUpdate, selectedFilters]);
   const classes = useStyles();
 
+  function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
+    setAnchorEl(e.currentTarget);
+  }
+  function handleClose() {
+    setAnchorEl(null);
+  }
+  const open = Boolean(anchorEl);
   return (
-    <div>
-      <h1>Locations</h1>
-      <Mui.TextField
-        value={inputFilter}
-        onChange={handleFilterInput}
-        label="Filer by name"
-      />
-
-      <Mui.FormControl className={classes.formControl}>
-        <Mui.InputLabel id="type">Type</Mui.InputLabel>
-        <Mui.Select
-          labelId="type"
-          name="type"
-          value={selectedFilters.type}
-          onChange={handleFilterSelection}
-        >
-          <Mui.MenuItem value="">(no filters)</Mui.MenuItem>
-          {filters.locations.type.map((el) => (
-            <Mui.MenuItem value={el} key={el}>
-              {el}
-            </Mui.MenuItem>
-          ))}
-        </Mui.Select>
-      </Mui.FormControl>
-
-      <Mui.FormControl className={classes.formControl}>
-        <Mui.InputLabel id="dimension">Dimension</Mui.InputLabel>
-        <Mui.Select
-          labelId="dimension"
-          name="dimension"
-          value={selectedFilters.dimension}
-          onChange={handleFilterSelection}
-        >
-          <Mui.MenuItem value="">(no filters)</Mui.MenuItem>
-          {filters.locations.dimension.map((el) => (
-            <Mui.MenuItem value={el} key={el}>
-              {el}
-            </Mui.MenuItem>
-          ))}
-        </Mui.Select>
-      </Mui.FormControl>
+    <Mui.Grid className={classes.tabRoot}>
+      <Mui.Typography variant="h4" align="center">
+        Table of locations
+      </Mui.Typography>
+      <form onSubmit={handleSubmit}>
+        <Mui.Grid container justifyContent="center" alignItems="center">
+          <Mui.TextField
+            value={inputFilter}
+            onChange={handleFilterInput}
+            label="Filer by name"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <>
+                  <Mui.IconButton onClick={handleOpen}>
+                    <FilterList />
+                  </Mui.IconButton>
+                  <Mui.IconButton onClick={handleSubmit}>
+                    <SearchIcon />
+                  </Mui.IconButton>
+                </>
+              ),
+            }}
+          />
+        </Mui.Grid>
+      </form>
 
       <LocationsTable
         array={apiData}
         page={page}
         handleSelect={handlePagination}
       />
-    </div>
+      <FiltersPopover
+        open={open}
+        anchorEl={anchorEl}
+        handleClose={handleClose}
+        selectedFilters={selectedFilters}
+        handleFilterSelection={handleFilterSelection}
+      />
+    </Mui.Grid>
   );
 }
 
