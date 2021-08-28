@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
-import ToWatch from "./ToWatch";
+import { useMemo } from "react";
+import ToWatchTable from "./ToWatchTable";
 
 type CommentSubmitType =
   | React.FormEvent<HTMLFormElement>
@@ -8,7 +9,7 @@ type CommentSubmitType =
   | React.MouseEvent<HTMLButtonElement>;
 type InputType = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
-type ToWatchType = {
+export type ToWatchType = {
   id: number;
   text: string;
   completed: boolean;
@@ -60,24 +61,39 @@ function MyWatchList() {
     const removed = toWatch.filter((el) => el.id !== id);
     setToWatch(removed);
   }
+
+  const toWatchTableMemo = useMemo(
+    () => (
+      <ToWatchTable
+        toWatch={toWatch}
+        handleToggle={handleToggle}
+        handleRemove={handleRemove}
+      />
+    ),
+    [toWatch]
+  );
+
   return (
-    <div>
+    <Mui.Grid>
       <form onSubmit={handleSubmit}>
-        <Mui.TextField label="To watch" value={input} onChange={handleInput} />
-        <Mui.Button onClick={handleSubmit}>Add ToWatch</Mui.Button>
+        <Mui.Grid item>
+          <Mui.TextField
+            label="Add here episode that you want toWatch later"
+            value={input}
+            onChange={handleInput}
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <Mui.Grid>
+                  <Mui.Button onClick={handleSubmit}>Add</Mui.Button>
+                </Mui.Grid>
+              ),
+            }}
+          />
+        </Mui.Grid>
       </form>
-      <h1>MyWatchList</h1>
-      {toWatch.map((el: ToWatchType) => (
-        <ToWatch
-          key={el.id}
-          text={el.text}
-          completed={el.completed}
-          id={el.id}
-          handleToggle={handleToggle}
-          handleRemove={handleRemove}
-        />
-      ))}
-    </div>
+      {toWatchTableMemo}
+    </Mui.Grid>
   );
 }
 
