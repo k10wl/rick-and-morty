@@ -121,6 +121,7 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
             style={{ paddingLeft: "10px" }}
             container
             alignItems="center"
+            justifyContent="flex-end"
             direction="column"
           >
             <Mui.Tooltip
