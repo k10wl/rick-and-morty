@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) =>
       alignItems: "center",
       justifyContent: "flex-start",
       position: "relative",
+      marginLeft: "15px",
       "&:before": {
         content: "''",
         width: "10px",
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) =>
         borderRadius: "10px",
         marginRight: "10px",
         position: "absolute",
-        left: "-15px",
+        left: "-20px",
       },
     },
     taskCompleted: {
