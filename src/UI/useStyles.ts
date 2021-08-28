@@ -24,10 +24,13 @@ const useStyles = makeStyles((theme) =>
         height: "10px",
         borderRadius: "10px",
         marginRight: "10px",
+        position: "absolute",
+        left: "-15px",
       },
     },
     taskCompleted: {
       textDecoration: "line-through",
+      color: "grey",
       "&:before": {
         backgroundColor: "grey",
       },

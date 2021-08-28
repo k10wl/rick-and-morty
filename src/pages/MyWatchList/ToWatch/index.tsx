@@ -18,14 +18,22 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
     <Mui.TableRow>
       <Mui.TableCell key={id}>
         <Mui.Grid container justifyContent="space-between">
-          <Mui.Typography
-            className={`${classes.task} ${
-              completed ? classes.taskCompleted : classes.taskPending
-            }`}
+          <Mui.Grid item sm>
+            <Mui.Typography
+              className={`${classes.task} ${
+                completed ? classes.taskCompleted : classes.taskPending
+              }`}
+            >
+              {text}
+            </Mui.Typography>
+          </Mui.Grid>
+          <Mui.Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            item
+            sm={2}
           >
-            {text}
-          </Mui.Typography>
-          <Mui.Grid>
             <Mui.Tooltip title="Toggle completed">
               <Mui.IconButton onClick={() => handleToggle(id)}>
                 <CheckIcon />
