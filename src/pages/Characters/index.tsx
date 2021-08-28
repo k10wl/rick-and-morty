@@ -72,14 +72,29 @@ function Characters() {
 
   const { loaded: namesLoaded, namesList } = GetAllNames(defaultUrl);
   return (
-    <Mui.Grid style={{ backgroundColor: "white" }}>
+    <Mui.Grid className={classes.tabRoot}>
       <Mui.Grid container justifyContent="center">
-        <Mui.Typography>Characters</Mui.Typography>
+        <Mui.Typography variant="h4">
+          List of{" "}
+          {selectedFilters.status !== "unknown"
+            ? selectedFilters.status
+            : `${selectedFilters.status} status`}{" "}
+          {selectedFilters.species !== "unknown"
+            ? selectedFilters.species
+            : `${selectedFilters.species} species`}{" "}
+          {selectedFilters.gender !== "unknown"
+            ? selectedFilters.gender
+            : `${selectedFilters.gender} gender`}{" "}
+          {!selectedFilters.status &&
+            !selectedFilters.gender &&
+            !selectedFilters.species &&
+            "all "}
+          characters
+        </Mui.Typography>
       </Mui.Grid>
-      <Mui.Grid>
-        <Mui.Typography>Filter by</Mui.Typography>
+      <Mui.Grid container alignItems="center" justifyContent="center">
         <Mui.FormControl className={classes.formControl}>
-          <Mui.InputLabel id="species">Species</Mui.InputLabel>
+          <Mui.InputLabel id="species">Filter by species</Mui.InputLabel>
           <Mui.Select
             labelId="species"
             name="species"
@@ -96,7 +111,7 @@ function Characters() {
         </Mui.FormControl>
 
         <Mui.FormControl className={classes.formControl}>
-          <Mui.InputLabel id="status">Status</Mui.InputLabel>
+          <Mui.InputLabel id="status">Filter by status</Mui.InputLabel>
           <Mui.Select
             labelId="status"
             name="status"
@@ -113,7 +128,7 @@ function Characters() {
         </Mui.FormControl>
 
         <Mui.FormControl className={classes.formControl}>
-          <Mui.InputLabel id="gender">Gender</Mui.InputLabel>
+          <Mui.InputLabel id="gender">Filter by gender</Mui.InputLabel>
           <Mui.Select
             labelId="gender"
             name="gender"
