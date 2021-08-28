@@ -40,13 +40,6 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
         </Mui.Grid>
       </Mui.TableCell>
     </Mui.TableRow>
-
-    // <div className={completed ? "completed" : undefined}>
-    //   <Typography>{text}</Typography>
-    //   {completed && <p>completed</p>}
-    //   <Button onClick={() => handleToggle(id)}>Toggle</Button>
-    //   <Button onClick={() => handleRemove(id)}>Remove</Button>
-    // </div>
   );
 }
 
