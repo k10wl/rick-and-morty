@@ -10,10 +10,7 @@ function Header() {
     setTabsValue(history.location.pathname);
   }, [forceUpdate]);
   return (
-    <Mui.AppBar
-      position="static"
-      style={{ margin: "0", backgroundColor: "#4e087d" }}
-    >
+    <Mui.AppBar position="static" style={{ margin: "0" }}>
       <Mui.Toolbar variant="dense">
         <Mui.Grid container item sm={12} md justifyContent="center">
           <Mui.Tabs value={tabsValue}>

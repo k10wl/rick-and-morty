@@ -94,7 +94,11 @@ function MyWatchList() {
               InputProps={{
                 endAdornment: (
                   <Mui.Grid>
-                    <Mui.Button onClick={handleSubmit} variant="outlined">
+                    <Mui.Button
+                      onClick={handleSubmit}
+                      variant="contained"
+                      color="primary"
+                    >
                       Add
                     </Mui.Button>
                   </Mui.Grid>
