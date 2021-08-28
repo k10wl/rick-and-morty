@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) =>
   createStyles({
     tabRoot: {
-      paddingTop: "25px",
+      padding: "25px 0",
       backgroundColor: "white",
     },
     card: {
