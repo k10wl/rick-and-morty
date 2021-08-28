@@ -75,24 +75,33 @@ function MyWatchList() {
 
   return (
     <Mui.Grid>
+      <Mui.Typography align="center" variant="h1">
+        Your toWatch list
+      </Mui.Typography>
       <form onSubmit={handleSubmit}>
-        <Mui.Grid item>
-          <Mui.TextField
-            label="Add here episode that you want toWatch later"
-            value={input}
-            onChange={handleInput}
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <Mui.Grid>
-                  <Mui.Button onClick={handleSubmit}>Add</Mui.Button>
-                </Mui.Grid>
-              ),
-            }}
-          />
+        <Mui.Grid item container justifyContent="center">
+          <Mui.Box width="75%">
+            <Mui.TextField
+              label="Add here episode that you want toWatch later"
+              value={input}
+              onChange={handleInput}
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <Mui.Grid>
+                    <Mui.Button onClick={handleSubmit} variant="outlined">
+                      Add
+                    </Mui.Button>
+                  </Mui.Grid>
+                ),
+              }}
+            />
+          </Mui.Box>
         </Mui.Grid>
       </form>
-      {toWatchTableMemo}
+      <Mui.Grid container justifyContent="center">
+        <Mui.Box width="75%">{toWatchTableMemo}</Mui.Box>
+      </Mui.Grid>
     </Mui.Grid>
   );
 }

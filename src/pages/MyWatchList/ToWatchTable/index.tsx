@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as Mui from "@material-ui/core";
-import MyTableCell from "../../../UI/MyTableCell";
 import ToWatch from "../ToWatch";
 import { ToWatchType } from "../index";
 
@@ -15,11 +14,6 @@ function ToWatchTable({ toWatch, handleToggle, handleRemove }: Props) {
     <Mui.Grid container direction="column" alignItems="center">
       <Mui.TableContainer>
         <Mui.Table>
-          <Mui.TableHead>
-            <Mui.TableRow>
-              <MyTableCell>To Watch List</MyTableCell>
-            </Mui.TableRow>
-          </Mui.TableHead>
           <Mui.TableBody>
             {toWatch.map((el: ToWatchType) => (
               <ToWatch
