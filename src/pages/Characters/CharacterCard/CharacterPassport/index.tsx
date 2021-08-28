@@ -2,6 +2,7 @@ import * as React from "react";
 import * as Mui from "@material-ui/core";
 import { Character } from "../../../../types";
 import useStyles from "../../../../UI/useStyles";
+import MyPopover from "../../../../UI/MyPopover";
 
 type Props = {
   character: Character;
@@ -20,7 +21,7 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
     return "";
   });
   return (
-    <Mui.Popover
+    <MyPopover
       open={open}
       anchorEl={anchorEl}
       onClose={handleClose}
@@ -135,7 +136,7 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
           </Mui.Grid>
         </Mui.Grid>
       </Mui.Grid>
-    </Mui.Popover>
+    </MyPopover>
   );
 }
 
