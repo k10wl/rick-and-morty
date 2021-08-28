@@ -2,6 +2,7 @@ import * as React from "react";
 import * as Mui from "@material-ui/core";
 import { useMemo } from "react";
 import ToWatchTable from "./ToWatchTable";
+import useStyles from "../../UI/useStyles";
 
 type CommentSubmitType =
   | React.FormEvent<HTMLFormElement>
@@ -72,9 +73,10 @@ function MyWatchList() {
     ),
     [toWatch]
   );
+  const classes = useStyles();
 
   return (
-    <Mui.Grid>
+    <Mui.Grid className={classes.tabRoot}>
       <Mui.Typography align="center" variant="h1">
         Your toWatch list
       </Mui.Typography>
