@@ -12,21 +12,21 @@ type Props = {
 
 function LocationsTable({ array, page, handleSelect }: Props) {
   return (
-    <Mui.TableContainer>
+    <Mui.TableContainer component={Mui.Paper}>
       <Mui.Table>
         <Mui.TableHead>
           <Mui.TableRow>
             <MyTableCell>Name</MyTableCell>
-            <MyTableCell>Type</MyTableCell>
-            <MyTableCell>Dimension</MyTableCell>
+            <MyTableCell align="right">Type</MyTableCell>
+            <MyTableCell align="right">Dimension</MyTableCell>
           </Mui.TableRow>
         </Mui.TableHead>
         <Mui.TableBody>
           {array.map((el) => (
             <Mui.TableRow key={el.id}>
               <Mui.TableCell>{el.name}</Mui.TableCell>
-              <Mui.TableCell>{el.type}</Mui.TableCell>
-              <Mui.TableCell>{el.dimension}</Mui.TableCell>
+              <Mui.TableCell align="right">{el.type}</Mui.TableCell>
+              <Mui.TableCell align="right">{el.dimension}</Mui.TableCell>
             </Mui.TableRow>
           ))}
         </Mui.TableBody>

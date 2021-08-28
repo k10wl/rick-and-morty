@@ -77,14 +77,17 @@ function MyWatchList() {
 
   return (
     <Mui.Grid className={classes.tabRoot}>
-      <Mui.Typography align="center" variant="h1">
-        Your toWatch list
+      <Mui.Typography align="center" variant="h4">
+        This is Your toWatch list.
+      </Mui.Typography>
+      <Mui.Typography align="center" variant="h4">
+        You can add here episode that you want toWatch later
       </Mui.Typography>
       <form onSubmit={handleSubmit}>
         <Mui.Grid item container justifyContent="center">
           <Mui.Box width="75%">
             <Mui.TextField
-              label="Add here episode that you want toWatch later"
+              label="Episode"
               value={input}
               onChange={handleInput}
               fullWidth

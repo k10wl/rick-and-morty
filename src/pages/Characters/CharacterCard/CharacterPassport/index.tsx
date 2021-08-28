@@ -111,7 +111,7 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
               <Mui.Typography>
                 {character.status === "Alive" && "Alive \u{1F7E2}"}
                 {character.status === "Dead" && "Dead \u{1FAA6}"}
-                {character.status === "unknown" && "unknown \u{2753}"}
+                {character.status === "unknown" && "unknown \u{2754}"}
               </Mui.Typography>
             </Mui.Grid>
           </Mui.Grid>
@@ -127,11 +127,14 @@ function CharacterPassport({ character, anchorEl, handleClose, open }: Props) {
             <Mui.Tooltip
               placement="top"
               title={
-                <Mui.Typography>{displayEpisodes.join(", ")}</Mui.Typography>
+                <Mui.Typography>
+                  {displayEpisodes.length === 1 ? "Episode: " : "Episodes: "}
+                  {displayEpisodes.join(", ")}
+                </Mui.Typography>
               }
             >
               <Mui.Typography className={classes.popoverEpisodes}>
-                Episodes
+                Appeared in
               </Mui.Typography>
             </Mui.Tooltip>
           </Mui.Grid>

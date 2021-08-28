@@ -17,8 +17,8 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
   return (
     <Mui.TableRow>
       <Mui.TableCell key={id}>
-        <Mui.Grid container justifyContent="space-between">
-          <Mui.Grid item sm>
+        <Mui.Grid container justifyContent="space-between" alignItems="center">
+          <Mui.Grid item xs>
             <Mui.Typography
               className={`${classes.task} ${
                 completed ? classes.taskCompleted : classes.taskPending
@@ -27,13 +27,7 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
               {text}
             </Mui.Typography>
           </Mui.Grid>
-          <Mui.Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-            item
-            sm={2}
-          >
+          <div>
             <Mui.Tooltip title="Toggle completed">
               <Mui.IconButton onClick={() => handleToggle(id)}>
                 <CheckIcon />
@@ -44,7 +38,7 @@ function ToWatch({ id, text, completed, handleToggle, handleRemove }: Props) {
                 <ClearIcon />
               </Mui.IconButton>
             </Mui.Tooltip>
-          </Mui.Grid>
+          </div>
         </Mui.Grid>
       </Mui.TableCell>
     </Mui.TableRow>

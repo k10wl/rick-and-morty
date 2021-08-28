@@ -44,12 +44,11 @@ function Episodes() {
   return (
     <Mui.Grid className={classes.tabRoot}>
       <Mui.Typography variant="h4" align="center">
-        List of Episodes
+        List of episodes
       </Mui.Typography>
       <form onSubmit={handleSubmit}>
         <Mui.Grid container justifyContent="center" alignItems="center">
           <Mui.TextField
-            variant="outlined"
             label="Filter"
             value={filter}
             onChange={handleFilterInput}

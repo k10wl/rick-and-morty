@@ -92,7 +92,7 @@ function Characters() {
           characters
         </Mui.Typography>
       </Mui.Grid>
-      <Mui.Grid container alignItems="center" justifyContent="center">
+      <Mui.Grid container alignItems="center" justifyContent="center" md>
         <Mui.FormControl className={classes.formControl}>
           <Mui.InputLabel id="species">Filter by species</Mui.InputLabel>
           <Mui.Select

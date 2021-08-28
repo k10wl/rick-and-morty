@@ -80,7 +80,10 @@ function Locations() {
   return (
     <Mui.Grid className={classes.tabRoot}>
       <Mui.Typography variant="h4" align="center">
-        Table of locations
+        Table of {selectedFilters.type && `${selectedFilters.type} `}
+        locations{" "}
+        {selectedFilters.dimension && `in ${selectedFilters.dimension} `}
+        {selectedFilters.dimension === "unknown" && `dimension`}
       </Mui.Typography>
       <form onSubmit={handleSubmit}>
         <Mui.Grid container justifyContent="center" alignItems="center">
