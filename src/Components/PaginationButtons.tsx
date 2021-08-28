@@ -1,7 +1,5 @@
-// @flow
 import * as React from "react";
 import * as Mui from "@material-ui/core";
-// import useStyles from "../UI/useStyles";
 
 type Props = {
   page: [string | null, string | null];
@@ -9,7 +7,6 @@ type Props = {
 };
 
 function PaginationButtons({ page, handleSelect }: Props) {
-  // const classes = useStyles();
   return (
     <Mui.Grid>
       <Mui.Button

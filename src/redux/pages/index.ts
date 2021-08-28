@@ -23,7 +23,6 @@ const pages = createSlice({
   name: "pages",
   initialState,
   reducers: {
-    // @ts-ignore
     storePages: (state, action: PayloadAction<Payload>) => ({
       ...state,
       [action.payload.category]: action.payload.pageData,

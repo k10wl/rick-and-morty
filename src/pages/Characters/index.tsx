@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import * as React from "react";
 import * as Mui from "@material-ui/core";
 import { useSelector } from "react-redux";
@@ -22,7 +21,6 @@ function Characters() {
   const { pages } = useSelector((state: DefaultRootState) => state);
   const [apiData, setApiData] = React.useState<Character[]>(pages.characters);
   const [page, setPage] = React.useState<PageType>([null, null]);
-  const [dataReady, setDataReady] = React.useState<boolean>(false);
   const defaultFiltersState: CharFilter = {
     species: "",
     status: "",
@@ -37,11 +35,7 @@ function Characters() {
   React.useEffect(() => {
     if (loaded) {
       setApiData(data as Character[]);
-      setDataReady(true);
       setPage([prev, next]);
-    }
-    if (!loaded) {
-      setDataReady(false);
     }
   }, [loaded]);
   function handlePagination(url: string | null) {
