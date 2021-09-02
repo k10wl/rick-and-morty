@@ -18,7 +18,7 @@ Stores data in localStorage.
 (all data is provided by https://rickandmortyapi.com)\
 
 ## How to run app
-`git clone https://github.com/k10wl/rick-and-morty\
+`git clone https://github.com/k10wl/rick-and-morty`\
 `cd rick-and-morty`\
 `npm install`\
 `npm start`
